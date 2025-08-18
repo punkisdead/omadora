@@ -1,3 +1,4 @@
 #!/bin/bash
 
-yay -S --noconfirm --needed gum python-terminaltexteffects
+sudo dnf -y install gum
+pip install terminaltexteffects

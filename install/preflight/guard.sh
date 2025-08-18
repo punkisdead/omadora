@@ -6,13 +6,8 @@ abort() {
   gum confirm "Proceed anyway on your own accord and without assistance?" || exit 1
 }
 
-# Must be an Arch distro
-[[ -f /etc/arch-release ]] || abort "Vanilla Arch"
-
-# Must not be an Arch derivative distro
-for marker in /etc/cachyos-release /etc/eos-release /etc/garuda-release /etc/manjaro-release; do
-  [[ -f "$marker" ]] && abort "Vanilla Arch"
-done
+# Must be a Fedora distro
+[[ -f /etc/fedora-release ]] || abort "Fedora"
 
 # Must not be runnig as root
 [ "$EUID" -eq 0 ] && abort "Running as user (not root)"
@@ -21,8 +16,8 @@ done
 [ "$(uname -m)" != "x86_64" ] && abort "x86_64 CPU"
 
 # Must not have Gnome or KDE already install
-pacman -Qe gnome-shell &>/dev/null && abort "Fresh + Vanilla Arch"
-pacman -Qe plasma-desktop &>/dev/null && abort "Fresh + Vanilla Arch"
+rpm -q gnome-shell &>/dev/null && abort "Fresh Fedora"
+rpm -q plasma-desktop &>/dev/null && abort "Fresh Fedora"
 
 # Cleared all guards
 echo "Guards: OK"
