@@ -2,130 +2,30 @@
 
 # Hyprland launched via UWSM and login directly as user, rely on disk encryption + hyprlock for security
 if ! command -v uwsm &>/dev/null || ! command -v plymouth &>/dev/null; then
-  sudo pacman -U --noconfirm https://archive.archlinux.org/packages/u/uwsm/uwsm-0.23.0-1-any.pkg.tar.zst
-  yay -S --noconfirm --needed plymouth
+  sudo dnf -y install uwsm plymouth
 fi
 
 # ==============================================================================
 # PLYMOUTH SETUP
 # ==============================================================================
 
-if ! grep -Eq '^HOOKS=.*plymouth' /etc/mkinitcpio.conf; then
-  # Backup original mkinitcpio.conf just in case
-  backup_timestamp=$(date +"%Y%m%d%H%M%S")
-  sudo cp /etc/mkinitcpio.conf "/etc/mkinitcpio.conf.bak.${backup_timestamp}"
 
-  # Add plymouth to HOOKS array after 'base udev' or 'base systemd'
-  if grep "^HOOKS=" /etc/mkinitcpio.conf | grep -q "base systemd"; then
-    sudo sed -i '/^HOOKS=/s/base systemd/base systemd plymouth/' /etc/mkinitcpio.conf
-  elif grep "^HOOKS=" /etc/mkinitcpio.conf | grep -q "base udev"; then
-    sudo sed -i '/^HOOKS=/s/base udev/base udev plymouth/' /etc/mkinitcpio.conf
-  else
-    echo "Couldn't add the Plymouth hook"
-  fi
-
-  # Regenerate initramfs
-  sudo mkinitcpio -P
-fi
 
 # Add kernel parameters for Plymouth
-if [ -d "/boot/loader/entries" ]; then # systemd-boot
-  echo "Detected systemd-boot"
-
-  for entry in /boot/loader/entries/*.conf; do
-    if [ -f "$entry" ]; then
-      # Skip fallback entries
-      if [[ "$(basename "$entry")" == *"fallback"* ]]; then
-        echo "Skipped: $(basename "$entry") (fallback entry)"
-        continue
-      fi
-
-      # Skip if splash it already present for some reason
-      if ! grep -q "splash" "$entry"; then
-        sudo sed -i '/^options/ s/$/ splash quiet/' "$entry"
-      else
-        echo "Skipped: $(basename "$entry") (splash already present)"
-      fi
-    fi
-  done
-elif [ -f "/etc/default/grub" ]; then # Grub
+if [ -f "/etc/default/grub" ]; then # Grub
   echo "Detected grub"
-
-  # Backup GRUB config before modifying
-  backup_timestamp=$(date +"%Y%m%d%H%M%S")
-  sudo cp /etc/default/grub "/etc/default/grub.bak.${backup_timestamp}"
-
-  # Check if splash is already in GRUB_CMDLINE_LINUX_DEFAULT
-  if ! grep -q "GRUB_CMDLINE_LINUX_DEFAULT.*splash" /etc/default/grub; then
-    # Get current GRUB_CMDLINE_LINUX_DEFAULT value
-    current_cmdline=$(grep "^GRUB_CMDLINE_LINUX_DEFAULT=" /etc/default/grub | cut -d'"' -f2)
-
-    # Add splash and quiet if not present
-    new_cmdline="$current_cmdline"
-    if [[ ! "$current_cmdline" =~ splash ]]; then
-      new_cmdline="$new_cmdline splash"
-    fi
-    if [[ ! "$current_cmdline" =~ quiet ]]; then
-      new_cmdline="$new_cmdline quiet"
-    fi
-
-    # Trim any leading/trailing spaces
-    new_cmdline=$(echo "$new_cmdline" | xargs)
-
-    sudo sed -i "s/^GRUB_CMDLINE_LINUX_DEFAULT=\".*\"/GRUB_CMDLINE_LINUX_DEFAULT=\"$new_cmdline\"/" /etc/default/grub
-
-    # Regenerate grub config
-    sudo grub-mkconfig -o /boot/grub/grub.cfg
-  else
-    echo "GRUB already configured with splash kernel parameters"
-  fi
-elif [ -d "/etc/cmdline.d" ]; then # UKI
-  echo "Detected a UKI setup"
-  # Relying on mkinitcpio to assemble a UKI
-  # https://wiki.archlinux.org/title/Unified_kernel_image
-  if ! grep -q splash /etc/cmdline.d/*.conf; then
-    # Need splash, create the omarchy file
-    echo "splash" | sudo tee -a /etc/cmdline.d/omarchy.conf
-  fi
-  if ! grep -q quiet /etc/cmdline.d/*.conf; then
-    # Need quiet, create or append the omarchy file
-    echo "quiet" | sudo tee -a /etc/cmdline.d/omarchy.conf
-  fi
-elif [ -f "/etc/kernel/cmdline" ]; then # UKI Alternate
-  # Alternate UKI kernel cmdline location
-  echo "Detected a UKI setup"
-
-  # Backup kernel cmdline config before modifying
-  backup_timestamp=$(date +"%Y%m%d%H%M%S")
-  sudo cp /etc/kernel/cmdline "/etc/kernel/cmdline.bak.${backup_timestamp}"
-
-  current_cmdline=$(cat /etc/kernel/cmdline)
-
-  # Add splash and quiet if not present
-  new_cmdline="$current_cmdline"
-  if [[ ! "$current_cmdline" =~ splash ]]; then
-    new_cmdline="$new_cmdline splash"
-  fi
-  if [[ ! "$current_cmdline" =~ quiet ]]; then
-    new_cmdline="$new_cmdline quiet"
-  fi
-
-  # Trim any leading/trailing spaces
-  new_cmdline=$(echo "$new_cmdline" | xargs)
-
-  # Write new file
-  echo $new_cmdline | sudo tee /etc/kernel/cmdline
+  sudo grubby --update-kernel=ALL --args="splash quiet"
 else
   echo ""
-  echo " None of systemd-boot, GRUB, or UKI detected. Please manually add these kernel parameters:"
+  echo "GRUB not detected. Please manually add these kernel parameters:"
   echo "  - splash (to see the graphical splash screen)"
   echo "  - quiet (for silent boot)"
   echo ""
 fi
 
-if [ "$(plymouth-set-default-theme)" != "omarchy" ]; then
-  sudo cp -r "$HOME/.local/share/omarchy/default/plymouth" /usr/share/plymouth/themes/omarchy/
-  sudo plymouth-set-default-theme -R omarchy
+if [ "$(plymouth-set-default-theme)" != "omadora" ]; then
+  sudo cp -r "$HOME/.local/share/omadora/default/plymouth" /usr/share/plymouth/themes/omadora/
+  sudo plymouth-set-default-theme -R omadora
 fi
 
 # ==============================================================================
@@ -213,11 +113,11 @@ CCODE
   rm /tmp/seamless-login.c
 fi
 
-if [ ! -f /etc/systemd/system/omarchy-seamless-login.service ]; then
-  cat <<EOF | sudo tee /etc/systemd/system/omarchy-seamless-login.service
+if [ ! -f /etc/systemd/system/omadora-seamless-login.service ]; then
+  cat <<EOF | sudo tee /etc/systemd/system/omadora-seamless-login.service
 [Unit]
 Description=Omarchy Seamless Auto-Login
-Documentation=https://github.com/basecamp/omarchy
+Documentation=https://github.com/basecamp/omadora
 Conflicts=getty@tty1.service
 After=systemd-user-sessions.service getty@tty1.service plymouth-quit.service systemd-logind.service
 PartOf=graphical.target
@@ -257,9 +157,9 @@ if ! systemctl is-enabled plymouth-quit-wait.service | grep -q masked; then
   sudo systemctl daemon-reload
 fi
 
-# Enable omarchy-seamless-login.service only if not already enabled
-if ! systemctl is-enabled omarchy-seamless-login.service | grep -q enabled; then
-  sudo systemctl enable omarchy-seamless-login.service
+# Enable omadora-seamless-login.service only if not already enabled
+if ! systemctl is-enabled omadora-seamless-login.service | grep -q enabled; then
+  sudo systemctl enable omadora-seamless-login.service
 fi
 
 # Disable getty@tty1.service only if not already disabled
