@@ -6,8 +6,10 @@ if [ -z "$OMADORA_BARE" ]; then
     flatpak gnome-calculator gnome-keyring libreoffice
 
   # --- Flatpak Installations ---
-  # Add the Flathub repository
-  sudo flatpak remote-add-if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+  # Add the Flathub repository if it doesn't exist
+  if ! flatpak remotes | grep -q "flathub"; then
+    sudo flatpak remote-add flathub https://flathub.org/repo/flathub.flatpakrepo
+  fi
   
   # Install apps from Flathub
   sudo flatpak install -y flathub \
