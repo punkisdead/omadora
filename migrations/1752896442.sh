@@ -4,6 +4,6 @@ if ! command -v wiremix &>/dev/null; then
   yay -S --noconfirm --needed wiremix
   yay -Rns --noconfirm pavucontrol
 
-  omarchy-refresh-applications
-  omarchy-refresh-waybar
+  omadora-refresh-applications
+  omadora-refresh-waybar
 fi

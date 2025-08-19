@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -e
+
+omadora-update-git
+omadora-migrate
+omadora-update-system-pkgs
+omadora-update-restart
+omadora-restart-waybar # removes update-available icon
