@@ -15,7 +15,7 @@ echo -e "\n$ansi_art\n"
 sudo dnf -y install git
 
 # Use custom repo if specified, otherwise default to your-github-username/omadora
-OMADORA_REPO="${OMADORA_REPO:-your-github-username/omadora}"
+OMADORA_REPO="${OMADORA_REPO:-punkisdead/omadora}"
 
 echo -e "\nCloning Omadora from: git@github.com:${OMADORA_REPO}.git"
 rm -rf ~/.local/share/omadora/
@@ -31,4 +31,3 @@ fi
 
 echo -e "\nInstallation starting..."
 source ~/.local/share/omadora/install.sh
-
