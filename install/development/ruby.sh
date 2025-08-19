@@ -7,7 +7,7 @@ export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 sudo dnf -y install openssl-devel readline-devel zlib-devel libyaml-devel libffi-devel gdbm-devel ncurses-devel
 
 # Add the Ruby plugin to asdf
-asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git
+asdf plugin add ruby https://github.com/asdf-vm/asdf-ruby.git
 
 # Install the latest stable version of Ruby
 asdf install ruby latest
