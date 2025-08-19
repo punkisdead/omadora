@@ -25,7 +25,7 @@ if ! command -v asdf &>/dev/null; then
 
   # Download and extract the asdf binary to ~/.local/bin
   curl --fail -L "$download_url" -o /tmp/asdf.tar.gz
-  tar -xzf /tmp/asdf.tar.gz -C "$HOME/.local/bin/" --strip-components=1 "bin/asdf"
+  tar -xzf /tmp/asdf.tar.gz -C "$HOME/.local/bin/" "asdf"
   rm /tmp/asdf.tar.gz
 fi
 
