@@ -3,7 +3,7 @@
 # Install asdcontrol for controlling brightness on Apple Displays
 if [ -z "$OMADORA_BARE" ] && ! command -v asdcontrol &>/dev/null; then
   # Install build dependencies
-  sudo dnf -y group install "Development Tools"
+  sudo dnf -y install @development-tools
   sudo dnf -y install libusb1-devel pkg-config
 
   # Compile and install
