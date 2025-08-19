@@ -28,7 +28,7 @@ if ! command -v asdf &>/dev/null; then
   esac
 
   release_name="asdf_${asdf_version}_linux_${asdf_arch}"
-  curl -L "https://github.com/asdf-vm/asdf/releases/download/v${asdf_version}/${release_name}.tar.gz" -o /tmp/asdf.tar.gz
+  curl --fail -L "https://github.com/asdf-vm/asdf/releases/download/v${asdf_version}/${release_name}.tar.gz" -o /tmp/asdf.tar.gz
   tar -xzf /tmp/asdf.tar.gz -C /tmp
   mv "/tmp/${release_name}/bin/asdf" "$HOME/.local/bin/asdf"
   rm -rf "/tmp/${release_name}" /tmp/asdf.tar.gz
