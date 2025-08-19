@@ -18,19 +18,15 @@ export PATH="$HOME/.local/bin:$PATH"
 if ! command -v asdf &>/dev/null; then
   arch=$(uname -m)
   case "$arch" in
-  x86_64) download_url="https://github.com/asdf-vm/asdf/releases/download/v0.18.0/asdf-v0.18.0-linux-amd64.tar.gz" ;;
-  aarch64) download_url="https://github.com/asdf-vm/asdf/releases/download/v0.18.0/asdf-0.18.0-linux-arm64.tar.gz" ;;
-  *)
-    echo "Unsupported architecture: $arch"
-    exit 1
-    ;;
+    x86_64) download_url="https://github.com/asdf-vm/asdf/releases/download/v0.18.0/asdf-v0.18.0-linux-amd64.tar.gz" ;;
+    aarch64) download_url="https://github.com/asdf-vm/asdf/releases/download/v0.18.0/asdf-v0.18.0-linux-arm64.tar.gz" ;;
+    *) echo "Unsupported architecture: $arch"; exit 1 ;;
   esac
 
   # Download and extract the asdf binary to ~/.local/bin
   curl --fail -L "$download_url" -o /tmp/asdf.tar.gz
-  tar -xzf /tmp/asdf.tar.gz -C /tmp
-  mv "/tmp/asdf/bin/asdf" "$HOME/.local/bin/asdf"
-  rm -rf "/tmp/asdf" /tmp/asdf.tar.gz
+  tar -xzf /tmp/asdf.tar.gz -C "$HOME/.local/bin/" --strip-components=1 "bin/asdf"
+  rm /tmp/asdf.tar.gz
 fi
 
 # Add asdf shims to PATH in .bashrc
