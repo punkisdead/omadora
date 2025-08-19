@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Install a display manager (sddm) and the boot splash screen (plymouth)
-sudo dnf -y install sddm plymouth
+sudo dnf -y install sddm plymouth plymouth-plugin-script
 
 # ==============================================================================
 # PLYMOUTH SETUP
