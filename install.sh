@@ -32,17 +32,17 @@ source $OMADORA_INSTALL/preflight/guard.sh
 source $OMADORA_INSTALL/preflight/presentation.sh
 source $OMADORA_INSTALL/preflight/migrations.sh
 
-# # Configuration
-# show_logo beams 240
-# show_subtext "Let's install Omadora! [1/5]"
-# source $OMADORA_INSTALL/config/identification.sh
-# source $OMADORA_INSTALL/config/config.sh
-# source $OMADORA_INSTALL/config/detect-keyboard-layout.sh
-# source $OMADORA_INSTALL/config/fix-fkeys.sh
-# source $OMADORA_INSTALL/config/network.sh
-# source $OMADORA_INSTALL/config/power.sh
-# source $OMADORA_INSTALL/config/timezones.sh
-# source $OMADORA_INSTALL/config/login.sh
+# Configuration
+show_logo beams 240
+show_subtext "Let's install Omadora! [1/5]"
+source $OMADORA_INSTALL/config/identification.sh
+source $OMADORA_INSTALL/config/config.sh
+source $OMADORA_INSTALL/config/detect-keyboard-layout.sh
+source $OMADORA_INSTALL/config/fix-fkeys.sh
+source $OMADORA_INSTALL/config/network.sh
+source $OMADORA_INSTALL/config/power.sh
+source $OMADORA_INSTALL/config/timezones.sh
+source $OMADORA_INSTALL/config/login.sh
 # source $OMADORA_INSTALL/config/nvidia.sh
 #
 # # Development
