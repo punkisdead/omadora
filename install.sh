@@ -45,15 +45,15 @@ source $OMADORA_INSTALL/config/timezones.sh
 source $OMADORA_INSTALL/config/login.sh
 # source $OMADORA_INSTALL/config/nvidia.sh
 #
-# # Development
-# show_logo decrypt 920
-# show_subtext "Installing terminal tools [2/5]"
-# source $OMADORA_INSTALL/development/terminal.sh
-# source $OMADORA_INSTALL/development/development.sh
-# source $OMADORA_INSTALL/development/nvim.sh
-# source $OMADORA_INSTALL/development/ruby.sh
-# source $OMADORA_INSTALL/development/docker.sh
-# source $OMADORA_INSTALL/development/firewall.sh
+# Development
+show_logo decrypt 920
+show_subtext "Installing terminal tools [2/5]"
+source $OMADORA_INSTALL/development/terminal.sh
+source $OMADORA_INSTALL/development/development.sh
+source $OMADORA_INSTALL/development/nvim.sh
+source $OMADORA_INSTALL/development/ruby.sh
+source $OMADORA_INSTALL/development/docker.sh
+source $OMADORA_INSTALL/development/firewall.sh
 #
 # # Desktop
 # show_logo slice 60

@@ -1,8 +1,16 @@
 #!/bin/bash
 
-# Install Ruby using gcc-14 for compatibility
-yay -S --noconfirm --needed gcc14
-mise settings set ruby.ruby_build_opts "CC=gcc-14 CXX=g++-14"
+# Ensure asdf is in the PATH for this script
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
-# Trust .ruby-version
-mise settings add idiomatic_version_file_enable_tools ruby
+# Install dependencies for building Ruby
+sudo dnf -y install openssl-devel readline-devel zlib-devel libyaml-devel libffi-devel gdbm-devel ncurses-devel
+
+# Add the Ruby plugin to asdf
+asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git
+
+# Install the latest stable version of Ruby
+asdf install ruby latest
+
+# Set the global Ruby version
+asdf set ruby latest
