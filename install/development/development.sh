@@ -46,10 +46,10 @@ fi
 
 # Add and install asdf plugins
 asdf plugin add lazygit
-#asdf plugin add lazydocker https://github.com/comdotlinux/asdf-lazydocker.git
+asdf plugin add lazydocker https://github.com/comdotlinux/asdf-lazydocker.git
 
 asdf install lazygit latest
-#asdf install lazydocker latest
+asdf install lazydocker latest
 
 asdf set lazygit latest
-#asdf set lazydocker latest
+asdf set lazydocker latest
