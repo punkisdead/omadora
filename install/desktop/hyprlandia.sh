@@ -1,6 +1,10 @@
 #!/bin/bash
 
-yay -S --noconfirm --needed \
-  hyprland hyprshot hyprpicker hyprlock hypridle hyprsunset polkit-gnome hyprland-qtutils \
-  walker-bin libqalculate waybar mako swaybg swayosd \
+# Enable the COPR repository for Hyprland and related tools
+sudo dnf -y copr enable solopasha/hyprland
+
+# Install Hyprland and its ecosystem
+sudo dnf -y install \
+  hyprland hyprshot hyprpicker hyprlock hypridle hyprsunset polkit-gnome \
+  walker libqalculate waybar mako swaybg swayosd \
   xdg-desktop-portal-hyprland xdg-desktop-portal-gtk

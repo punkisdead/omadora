@@ -55,16 +55,16 @@ source $OMADORA_INSTALL/development/ruby.sh
 source $OMADORA_INSTALL/development/docker.sh
 source $OMADORA_INSTALL/development/firewall.sh
 #
-# # Desktop
-# show_logo slice 60
-# show_subtext "Installing desktop tools [3/5]"
-# source $OMADORA_INSTALL/desktop/desktop.sh
-# source $OMADORA_INSTALL/desktop/hyprlandia.sh
-# source $OMADORA_INSTALL/desktop/theme.sh
-# source $OMADORA_INSTALL/desktop/bluetooth.sh
-# source $OMADORA_INSTALL/desktop/asdcontrol.sh
-# source $OMADORA_INSTALL/desktop/fonts.sh
-# source $OMADORA_INSTALL/desktop/printer.sh
+# Desktop
+show_logo slice 60
+show_subtext "Installing desktop tools [3/5]"
+source $OMADORA_INSTALL/desktop/desktop.sh
+source $OMADORA_INSTALL/desktop/hyprlandia.sh
+source $OMADORA_INSTALL/desktop/theme.sh
+source $OMADORA_INSTALL/desktop/bluetooth.sh
+source $OMADORA_INSTALL/desktop/asdcontrol.sh
+source $OMADORA_INSTALL/desktop/fonts.sh
+source $OMADORA_INSTALL/desktop/printer.sh
 #
 # # Apps
 # show_logo expand
