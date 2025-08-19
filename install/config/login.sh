@@ -21,7 +21,8 @@ fi
 
 # Set the default plymouth theme to omadora
 if [ "$(plymouth-set-default-theme)" != "omadora" ]; then
-  sudo cp -r "$HOME/.local/share/omadora/default/omadora-plymouth-theme" /usr/share/plymouth/themes/omadora/
+  sudo mkdir -p /usr/share/plymouth/themes/omadora
+  sudo cp -r "$HOME/.local/share/omadora/default/omadora-plymouth-theme/." /usr/share/plymouth/themes/omadora/
   # The -R flag rebuilds the initrd, applying kernel parameters and theme changes
   sudo plymouth-set-default-theme -R omadora
 fi
