@@ -2,7 +2,6 @@
 
 # Enable the COPR repository for Hyprland and related tools
 sudo dnf -y copr enable solopasha/hyprland
-sudo dnf -y check-update
 
 # Install Hyprland and its ecosystem
 sudo dnf -y install \
