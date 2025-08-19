@@ -18,8 +18,8 @@ export PATH="$HOME/.local/bin:$PATH"
 if ! command -v asdf &>/dev/null; then
   arch=$(uname -m)
   case "$arch" in
-  x86_64) download_url="https://github.com/asdf-vm/asdf/releases/download/v0.18.0/asdf-0.18.0-linux_amd64.tar.gz" ;;
-  aarch64) download_url="https://github.com/asdf-vm/asdf/releases/download/v0.18.0/asdf-0.18.0-linux_arm64.tar.gz" ;;
+  x86_64) download_url="https://github.com/asdf-vm/asdf/releases/download/v0.18.0/asdf-v0.18.0-linux-amd64.tar.gz" ;;
+  aarch64) download_url="https://github.com/asdf-vm/asdf/releases/download/v0.18.0/asdf-0.18.0-linux-arm64.tar.gz" ;;
   *)
     echo "Unsupported architecture: $arch"
     exit 1
