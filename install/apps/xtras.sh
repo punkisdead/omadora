@@ -3,7 +3,7 @@
 if [ -z "$OMADORA_BARE" ]; then
   # --- RPM Installations ---
   sudo dnf -y install \
-    gnome-calculator gnome-keyring libreoffice
+    flatpak gnome-calculator gnome-keyring libreoffice
 
   # --- Flatpak Installations ---
   # Add the Flathub repository
