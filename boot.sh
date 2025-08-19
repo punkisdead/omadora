@@ -17,9 +17,9 @@ sudo dnf -y install git
 # Use custom repo if specified, otherwise default to your-github-username/omadora
 OMADORA_REPO="${OMADORA_REPO:-punkisdead/omadora}"
 
-echo -e "\nCloning Omadora from: git@github.com:${OMADORA_REPO}.git"
+echo -e "\nCloning Omadora from: https://github.com/${OMADORA_REPO}.git"
 rm -rf ~/.local/share/omadora/
-git clone "git@github.com:${OMADORA_REPO}.git" ~/.local/share/omadora >/dev/null
+git clone "https://github.com/${OMADORA_REPO}.git" ~/.local/share/omadora >/dev/null
 
 # Use custom branch if instructed
 if [[ -n "$OMADORA_REF" ]]; then
