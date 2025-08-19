@@ -73,14 +73,13 @@ source $OMADORA_INSTALL/apps/webapps.sh
 source $OMADORA_INSTALL/apps/xtras.sh
 source $OMADORA_INSTALL/apps/mimetypes.sh
 #
-# # Updates
-# show_logo highlight
-# show_subtext "Updating system packages [5/5]"
-# sudo updatedb
-# yay -Syu --noconfirm --ignore uwsm
-#
-# # Reboot
-# show_logo laseretch 920
-# show_subtext "You're done! So we'll be rebooting now..."
-# sleep 2
-# reboot
+# Updates
+show_logo highlight
+show_subtext "Updating system packages [5/5]"
+sudo dnf -y upgrade
+
+# Reboot
+show_logo laseretch 920
+show_subtext "You're done! So we'll be rebooting now..."
+sleep 2
+reboot
