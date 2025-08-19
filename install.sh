@@ -66,12 +66,12 @@ source $OMADORA_INSTALL/desktop/asdcontrol.sh
 source $OMADORA_INSTALL/desktop/fonts.sh
 source $OMADORA_INSTALL/desktop/printer.sh
 #
-# # Apps
-# show_logo expand
-# show_subtext "Installing default applications [4/5]"
-# source $OMADORA_INSTALL/apps/webapps.sh
-# source $OMADORA_INSTALL/apps/xtras.sh
-# source $OMADORA_INSTALL/apps/mimetypes.sh
+# Apps
+show_logo expand
+show_subtext "Installing default applications [4/5]"
+source $OMADORA_INSTALL/apps/webapps.sh
+source $OMADORA_INSTALL/apps/xtras.sh
+source $OMADORA_INSTALL/apps/mimetypes.sh
 #
 # # Updates
 # show_logo highlight
