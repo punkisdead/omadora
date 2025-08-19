@@ -17,12 +17,8 @@ if [ -z "$OMADORA_BARE" ]; then
     us.zoom.Zoom
 
   # --- 1Password Installation ---
-  # Add the 1Password repository
-  sudo rpm --import https://downloads.1password.com/linux/keys/1password.asc
-  sudo sh -c 'echo -e "[1password]\nname=1Password\nbaseurl=https://downloads.1password.com/linux/rpm/stable/$basearch\nenabled=1\ngpgcheck=1\nrepo_gpgcheck=1\ngpgkey=\"https://downloads.1password.com/linux/keys/1password.asc\"" > /etc/yum.repos.d/1password.repo'
-  
-  # Install 1Password
-  sudo dnf -y install 1password 1password-cli || echo -e "\e[31mFailed to install 1password. Continuing without!\e[0m"
+  # Use the official script to add the repository and install
+  curl -sS https://downloads.1password.com/linux/install.sh | sh || echo -e "\e[31mFailed to install 1password. Continuing without!\e[0m"
 fi
 
 # Copy over Omadora applications
