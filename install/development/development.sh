@@ -16,22 +16,21 @@ export PATH="$HOME/.local/bin:$PATH"
 
 # Install asdf (version manager) from pre-compiled binary
 if ! command -v asdf &>/dev/null; then
-  asdf_version="0.18.0"
   arch=$(uname -m)
   case "$arch" in
-  x86_64) asdf_arch="amd64" ;;
-  aarch64) asdf_arch="arm64" ;;
+  x86_64) download_url="https://github.com/asdf-vm/asdf/releases/download/v0.18.0/asdf-0.18.0-linux_amd64.tar.gz" ;;
+  aarch64) download_url="https://github.com/asdf-vm/asdf/releases/download/v0.18.0/asdf-0.18.0-linux_arm64.tar.gz" ;;
   *)
     echo "Unsupported architecture: $arch"
     exit 1
     ;;
   esac
 
-  release_name="asdf_${asdf_version}_linux_${asdf_arch}"
-  curl --fail -L "https://github.com/asdf-vm/asdf/releases/download/v${asdf_version}/${release_name}.tar.gz" -o /tmp/asdf.tar.gz
+  # Download and extract the asdf binary to ~/.local/bin
+  curl --fail -L "$download_url" -o /tmp/asdf.tar.gz
   tar -xzf /tmp/asdf.tar.gz -C /tmp
-  mv "/tmp/${release_name}/bin/asdf" "$HOME/.local/bin/asdf"
-  rm -rf "/tmp/${release_name}" /tmp/asdf.tar.gz
+  mv "/tmp/asdf/bin/asdf" "$HOME/.local/bin/asdf"
+  rm -rf "/tmp/asdf" /tmp/asdf.tar.gz
 fi
 
 # Add asdf shims to PATH in .bashrc
