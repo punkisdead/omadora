@@ -18,9 +18,12 @@ export PATH="$HOME/.local/bin:$PATH"
 if ! command -v asdf &>/dev/null; then
   arch=$(uname -m)
   case "$arch" in
-    x86_64) download_url="https://github.com/asdf-vm/asdf/releases/download/v0.18.0/asdf-v0.18.0-linux-amd64.tar.gz" ;;
-    aarch64) download_url="https://github.com/asdf-vm/asdf/releases/download/v0.18.0/asdf-v0.18.0-linux-arm64.tar.gz" ;;
-    *) echo "Unsupported architecture: $arch"; exit 1 ;;
+  x86_64) download_url="https://github.com/asdf-vm/asdf/releases/download/v0.18.0/asdf-v0.18.0-linux-amd64.tar.gz" ;;
+  aarch64) download_url="https://github.com/asdf-vm/asdf/releases/download/v0.18.0/asdf-v0.18.0-linux-arm64.tar.gz" ;;
+  *)
+    echo "Unsupported architecture: $arch"
+    exit 1
+    ;;
   esac
 
   # Download and extract the asdf binary to ~/.local/bin
@@ -42,8 +45,8 @@ if ! grep -q 'asdf completion bash' "$HOME/.bashrc"; then
 fi
 
 # Add and install asdf plugins
-asdf plugin-add lazygit https://github.com/comdotlinux/asdf-lazygit.git
-asdf plugin-add lazydocker https://github.com/comdotlinux/asdf-lazydocker.git
+asdf plugin add lazygit https://github.com/comdotlinux/asdf-lazygit.git
+asdf plugin add lazydocker https://github.com/comdotlinux/asdf-lazydocker.git
 
 asdf install lazygit latest
 asdf install lazydocker latest
