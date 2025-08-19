@@ -1,8 +1,6 @@
 #!/bin/bash
 
 # Add the Google Chrome repository
-sudo dnf -y install dnf-plugins-core
-sudo dnf config-manager --add-repo https://dl.google.com/linux/chrome/rpm/stable/x86_64
 echo -e "[google-chrome]\nname=google-chrome\nbaseurl=https://dl.google.com/linux/chrome/rpm/stable/x86_64\nenabled=1\ngpgcheck=1\ngpgkey=https://dl.google.com/linux/linux_signing_key.pub" | sudo tee /etc/yum.repos.d/google-chrome.repo
 
 # Install desktop applications
