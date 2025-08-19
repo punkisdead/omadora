@@ -1,10 +1,9 @@
 #!/bin/bash
 
-# Ensure RPM Fusion repositories are enabled and metadata is refreshed
-sudo dnf -y install \
-  "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm" \
-  "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
-sudo dnf -y check-update
+# Add the Google Chrome repository
+sudo dnf -y install dnf-plugins-core
+sudo dnf config-manager --add-repo https://dl.google.com/linux/chrome/rpm/stable/x86_64
+echo -e "[google-chrome]\nname=google-chrome\nbaseurl=https://dl.google.com/linux/chrome/rpm/stable/x86_64\nenabled=1\ngpgcheck=1\ngpgkey=https://dl.google.com/linux/linux_signing_key.pub" | sudo tee /etc/yum.repos.d/google-chrome.repo
 
 # Install desktop applications
 sudo dnf -y install \
@@ -13,5 +12,5 @@ sudo dnf -y install \
   nautilus sushi ffmpegthumbnailer gvfs-mtp \
   slurp swappy \
   mpv evince imv \
-  chromium-freeworld \
+  google-chrome-stable \
   wf-recorder
